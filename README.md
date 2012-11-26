@@ -22,7 +22,7 @@ Capybara.default_driver = :persistent_selenium
 Should work just the same as if you used the standard Capybara Selenium driver, except for
 these two differences:
 
-* The browser starts up first thing and sticks around
+* The browser starts up first thing and sticks around.
 * The last page you were on before your tests passed/failed stays there, so you can inspect it.
 
 The browser's cookies and such are reset before the next test runs, so you still get the state
