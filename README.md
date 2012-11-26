@@ -1,29 +1,40 @@
-# PersistentSelenium
+Now you can keep that precious browser window open when doing continuous integration testing.
+Save seconds, and sanity, with every test re-run!
 
-TODO: Write a gem description
+Also, the browser stays open at its last state so you can inspect it and fix your tests and/or code.
 
-## Installation
+Start an instance:
 
-Add this line to your application's Gemfile:
+``` bash
+persistent_selenium [ --port 9854 ] [ --browser firefox ]
+```
 
-    gem 'persistent_selenium'
+Tell Capybara to use it:
 
-And then execute:
+```
+# features/support/env.rb
 
-    $ bundle
+require 'persistent_selenium/driver'
+Capybara.default_driver = :persistent_selenium
+```
 
-Or install it yourself as:
+Should work just the same as if you used the standard Capybara Selenium driver, except for
+these two differences:
 
-    $ gem install persistent_selenium
+* The browser starts up first thing and sticks around
+* The last page you were on before your tests passed/failed stays there, so you can inspect it.
 
-## Usage
+The browser's cookies and such are reset before the next test runs, so you still get the state
+cleared out before your next set of tests.
 
-TODO: Write usage instructions here
+### Under the hood
 
-## Contributing
+It's DRb, which Just Works (tm), and a little reshuffling of the default Capybara Selenium driver's code.
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+Copyright © 2012 John Bintz
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

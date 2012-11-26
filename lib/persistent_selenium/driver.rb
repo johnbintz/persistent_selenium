@@ -1,6 +1,6 @@
 require 'persistent_selenium'
 
-Capybara.register_driver :drb do |app|
+Capybara.register_driver :persistent_selenium do |app|
   require 'drb'
 
   DRb.start_service

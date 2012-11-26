@@ -4,22 +4,27 @@ require 'persistent_selenium'
 module PersistentSelenium
   class CLI < Thor
     desc "start", "Start the server"
+    method_options :port => PersistentSelenium.port, :browser => PersistentSelenium.browser
     def start
       require 'persistent_selenium/browser'
       require 'drb'
 
-      port = ENV['PORT'] || PersistentSelenium.port
-      browser = ENV['BROWSER'] || PersistentSelenium.browser
+      PersistentSelenium.configure do |c|
+        c.port = options[:port]
+        c.browser = options[:browser]
+      end
 
-      puts "Starting persistent_selenium on #{port} with #{browser}"
+      puts "Starting persistent_selenium on #{PersistentSelenium.port} with #{PersistentSelenium.browser}"
 
-      browser = Browser.new(browser)
+      browser = Browser.new(PersistentSelenium.browser)
       browser.browser
 
       DRb.start_service PersistentSelenium.url, browser
 
       DRb.thread.join
     end
+
+    default_task :start
   end
 end
 
