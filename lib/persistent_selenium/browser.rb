@@ -25,6 +25,8 @@ module PersistentSelenium
     end
 
     def set_app_host(host)
+      load_splash_page
+
       @app_host = host
     end
 
@@ -42,6 +44,10 @@ module PersistentSelenium
           # instead.
         end
       end
+
+      GC.enable
+      GC.start
+      GC.disable
     end
 
     def starting_page
