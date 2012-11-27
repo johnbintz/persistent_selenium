@@ -4,7 +4,7 @@ Capybara.register_driver :persistent_selenium do |app|
   require 'drb'
 
   DRb.start_service
-  browser = DRbObject.new nil, PersistentSelenium.url 
+  browser = DRbObject.new nil, PersistentSelenium.url
 
   server = Capybara::Server.new(app)
   server.boot
