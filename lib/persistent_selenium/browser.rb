@@ -26,7 +26,9 @@ module PersistentSelenium
 
     def set_app_host(host)
       @app_host = host
+    end
 
+    def load_splash_page
       browser.navigate.to("data:text/html;base64,#{Base64.encode64(starting_page)}")
     end
 
