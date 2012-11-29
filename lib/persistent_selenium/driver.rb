@@ -4,6 +4,13 @@ require 'capybara/selenium/driver'
 # make sure these classes exist on this end
 [ Selenium::WebDriver::Error::StaleElementReferenceError, Selenium::WebDriver::Error::UnhandledError, Selenium::WebDriver::Error::ElementNotVisibleError ]
 
+Before do
+  if Capybara.current_driver == :persistent_selenium
+    Capybara.server_port ||= '3001'
+    Capybara.app_host ||= "http://localhost:#{Capybara.server_port}"
+  end
+end
+
 Capybara.register_driver :persistent_selenium do |app|
   require 'drb'
 
