@@ -3,12 +3,17 @@ require 'persistent_selenium'
 
 module PersistentSelenium
   class CLI < Thor
+    include Thor::Actions
+
+    def self.source_root
+      File.expand_path('../../../skel', __FILE__)
+    end
+
     desc "start", "Start the server"
     method_options :port => PersistentSelenium.port, :browser => PersistentSelenium.browser
     def start
       require 'persistent_selenium/browser'
       require 'drb'
-      GC.disable
 
       PersistentSelenium.configure do |c|
         c.port = options[:port]
@@ -23,6 +28,11 @@ module PersistentSelenium
       DRb.start_service PersistentSelenium.url, @browser
 
       DRb.thread.join
+    end
+
+    desc "install", "Install Cucumber hook for using persistent selenium"
+    def install
+      directory '.', '.'
     end
 
     default_task :start

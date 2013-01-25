@@ -19,6 +19,12 @@ require 'persistent_selenium/driver'
 Capybara.default_driver = :persistent_selenium
 ```
 
+If you're using Cucumber, you can also install that hook:
+
+``` bash
+persistent_selenium install
+```
+
 Should work just the same as if you used the standard Capybara Selenium driver, except for
 these two differences:
 
