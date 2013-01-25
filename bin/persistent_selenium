@@ -4,4 +4,5 @@ $: << File.expand_path('../../lib', __FILE__)
 
 require 'persistent_selenium/cli'
 
+GC.disable
 PersistentSelenium::CLI.start

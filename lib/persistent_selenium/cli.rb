@@ -8,6 +8,7 @@ module PersistentSelenium
     def start
       require 'persistent_selenium/browser'
       require 'drb'
+      GC.disable
 
       PersistentSelenium.configure do |c|
         c.port = options[:port]
@@ -16,10 +17,10 @@ module PersistentSelenium
 
       puts "Starting persistent_selenium on #{PersistentSelenium.port} with #{PersistentSelenium.browser}"
 
-      browser = Browser.new(PersistentSelenium.browser)
-      browser.browser
+      @browser = Browser.new(PersistentSelenium.browser)
+      @browser.browser
 
-      DRb.start_service PersistentSelenium.url, browser
+      DRb.start_service PersistentSelenium.url, @browser
 
       DRb.thread.join
     end

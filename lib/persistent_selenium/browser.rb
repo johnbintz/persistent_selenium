@@ -6,6 +6,7 @@ module PersistentSelenium
   class Browser < Capybara::Selenium::Driver
     def initialize(browser_type)
       @browser_type = browser_type
+      @__found_elements__ = []
     end
 
     def browser
@@ -43,10 +44,6 @@ module PersistentSelenium
           # instead.
         end
       end
-
-      GC.enable
-      GC.start
-      GC.disable
     end
 
     def starting_page

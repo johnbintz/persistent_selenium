@@ -22,8 +22,10 @@ Capybara.default_driver = :persistent_selenium
 Should work just the same as if you used the standard Capybara Selenium driver, except for
 these two differences:
 
-* The browser starts up first thing and sticks around.
-* The last page you were on before your tests passed/failed stays there, so you can inspect it.
+* The browser starts up first thing and sticks around, so you don't pay the startup/shutdown
+  penalty with each test run.
+* The last page you were on before your tests passed/failed stays there, so you can inspect it
+  and adjust your tests.
 
 The browser's cookies and such are reset before the next test runs, so you still get the state
 cleared out before your next set of tests.
@@ -31,4 +33,11 @@ cleared out before your next set of tests.
 ### Under the hood
 
 It's DRb, which Just Works (tm), and a little reshuffling of the default Capybara Selenium driver's code.
+
+#### When DRb doesn't Just Work (tm)
+
+You may see recycled object errorrs. Capybara is complex enough that, eventually, something
+will get garbage collected on the server and an object on the client will notice.
+I turned off garbage collection on the server but it still happens.
+Just rerun the test. It doesn't happen too often. It's the price you pay for speed.
 
