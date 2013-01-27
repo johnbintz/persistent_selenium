@@ -9,7 +9,20 @@ module PersistentSelenium
     end
 
     def browser
-      @browser ||= Selenium::WebDriver.for(@browser_type)
+      case @browser_type
+      when :firefox
+        profile = Selenium::WebDriver::Firefox::Profile.new
+        profile['browser.cache.disk.enable'] = false
+        profile['browser.cache.memory.enable'] = false
+        profile['browser.cache.offline.enable'] = false
+        profile['network.http.use-cache'] = false
+
+        options = { :profile => profile }
+      when :chrome
+        options = { :switches => %w{--disk-cache-size=1 --media-cache-size=1} }
+      end
+
+      @browser ||= Selenium::WebDriver.for(@browser_type, options)
     end
 
     def options
