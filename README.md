@@ -33,12 +33,12 @@ these two differences:
 * The last page you were on before your tests passed/failed stays there, so you can inspect it
   and adjust your tests.
 
-The browser's cookies and such are reset before the next test runs, so you still get the state
+The browser's cache is disabled, and cookies are reset before the next test runs, so you still get the state
 cleared out before your next set of tests.
 
 ### Under the hood
 
-It's DRb, which Just Works (tm), and a little reshuffling of the default Capybara Selenium driver's code.
+It's DRb, which mostly Just Works (tm), and has a little reshuffling of the default Capybara Selenium driver's code.
 
 #### When DRb doesn't Just Work (tm)
 
