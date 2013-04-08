@@ -27,6 +27,9 @@ module PersistentSelenium
 
       DRb.start_service PersistentSelenium.url, @browser
 
+      trap('TERM') { exit }
+      trap('INT') { exit }
+
       DRb.thread.join
     end
 
