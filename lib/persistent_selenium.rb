@@ -1,4 +1,5 @@
 require "persistent_selenium/version"
+require 'selenium-webdriver'
 
 module PersistentSelenium
   class << self

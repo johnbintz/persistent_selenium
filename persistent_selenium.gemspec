@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "persistent_selenium"
   gem.require_paths = ["lib"]
   gem.version       = PersistentSelenium::VERSION
+
+  gem.add_dependency 'selenium-webdriver'
 end
