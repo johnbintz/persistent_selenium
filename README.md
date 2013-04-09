@@ -42,8 +42,9 @@ It's DRb, which mostly Just Works (tm), and has a little reshuffling of the defa
 
 #### When DRb doesn't Just Work (tm)
 
-You may see recycled object errorrs. Capybara is complex enough that, eventually, something
-will get garbage collected on the server and an object on the client will notice.
-I turned off garbage collection on the server but it still happens.
-Just rerun the test. It doesn't happen too often. It's the price you pay for speed.
+You're most likely using `all` and invoking an action on one of the nodes within, I'd wager. If you need to find a node
+to perform an action on, it's best to stick with `find`, since it's less likely that node will go out of
+ObjectSpace that quickly. If you need to examine the document for particular properties, and `all` seems like
+the best way to do it, instead try parsing the document body with Nokogiri and using its finders.
+That way, all your node searching will be done on the client end.
 
