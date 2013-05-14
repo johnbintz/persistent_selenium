@@ -3,7 +3,7 @@ require 'selenium-webdriver'
 
 module PersistentSelenium
   class << self
-    attr_writer :port, :browser
+    attr_writer :port, :browser, :timeout
 
     def port
       @port ||= 9854
@@ -11,6 +11,10 @@ module PersistentSelenium
 
     def browser
       @browser ||= :firefox
+    end
+
+    def timeout
+      @timeout ||= 120
     end
 
     def url

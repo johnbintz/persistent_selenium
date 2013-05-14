@@ -11,10 +11,10 @@ Before do
   end
 end
 
-Capybara.register_driver :persistent_selenium do |app|
-  require 'drb'
+require 'persistent_selenium/drb'
 
-  DRb.start_service
+Capybara.register_driver :persistent_selenium do |app|
+  service = DRb.start_service
   browser = DRbObject.new nil, PersistentSelenium.url
 
   server = Capybara::Server.new(app)
