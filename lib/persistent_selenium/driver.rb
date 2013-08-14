@@ -1,4 +1,5 @@
 require 'persistent_selenium'
+require 'persistent_selenium/browser'
 require 'capybara/selenium/driver'
 
 # make sure these classes exist on this end

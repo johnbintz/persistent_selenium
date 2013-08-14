@@ -10,15 +10,19 @@ module PersistentSelenium
     end
 
     desc "start", "Start the server"
-    method_options :port => PersistentSelenium.port, :browser => PersistentSelenium.browser, :timeout => PersistentSelenium.timeout
+    method_options :port => PersistentSelenium.port,
+      :browser => PersistentSelenium.browser,
+      :timeout => PersistentSelenium.timeout
+    method_option :chrome_extensions, :type => :array, :default => []
     def start
       require 'persistent_selenium/browser'
       require 'persistent_selenium/drb'
 
       PersistentSelenium.configure do |c|
         c.port = options[:port]
-        c.browser = options[:browser]
+        c.browser = options[:browser] if options[:browser]
         c.timeout = options[:timeout]
+        c.chrome_extensions = options[:chrome_extensions] if !options[:chrome_extensions].empty?
       end
 
       puts "Starting persistent_selenium on #{PersistentSelenium.port} with #{PersistentSelenium.browser}"

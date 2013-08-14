@@ -5,7 +5,7 @@ require 'base64'
 module PersistentSelenium
   class Browser < Capybara::Selenium::Driver
     def initialize(browser_type)
-      @browser_type = browser_type
+      @browser_type = browser_type.to_s.to_sym
       @__found_elements__ = []
     end
 
@@ -20,7 +20,13 @@ module PersistentSelenium
 
         options = { :profile => profile }
       when :chrome
-        options = { :switches => %w{--disk-cache-size=1 --media-cache-size=1} }
+        profile = Selenium::WebDriver::Chrome::Profile.new
+
+        PersistentSelenium.chrome_extensions.each do |extension|
+          profile.add_extension extension
+        end
+
+        options = { :profile => profile, :switches => %w{--disk-cache-size=1 --media-cache-size=1} }
       end
 
       @browser ||= Selenium::WebDriver.for(@browser_type, options)
