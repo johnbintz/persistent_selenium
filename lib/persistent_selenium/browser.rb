@@ -5,7 +5,7 @@ require 'base64'
 module PersistentSelenium
   class Browser < Capybara::Selenium::Driver
     def initialize(browser_type)
-      @browser_type = browser_type
+      @browser_type = browser_type.to_s.to_sym
       @__found_elements__ = []
     end
 
