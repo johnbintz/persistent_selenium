@@ -7,6 +7,14 @@ require 'capybara/selenium/driver'
 Capybara.register_driver :persistent_selenium do |app|
   require 'drb'
 
+  module DRb
+    class DRbObject
+      def method(name)
+        method_missing(:method, name)
+      end
+    end
+  end
+
   DRb.start_service
   browser = DRbObject.new nil, PersistentSelenium.url
 

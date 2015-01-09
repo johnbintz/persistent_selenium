@@ -30,6 +30,10 @@ module PersistentSelenium
       {}
     end
 
+    def browser_initialized?
+      false
+    end
+
     def visit(path)
       if !path[/^http/]
         path = @app_host + path
