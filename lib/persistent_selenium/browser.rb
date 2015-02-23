@@ -6,6 +6,7 @@ module PersistentSelenium
   class Browser < Capybara::Selenium::Driver
     def initialize(browser_type)
       @browser_type = browser_type.to_s.to_sym
+      @frame_handles = {}
       @__found_elements__ = []
     end
 
