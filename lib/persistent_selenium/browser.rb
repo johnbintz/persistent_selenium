@@ -21,13 +21,13 @@ module PersistentSelenium
 
         options = { :profile => profile }
       when :chrome
-        profile = Selenium::WebDriver::Chrome::Profile.new
+        switches = %w{--disk-cache-size=1 --media-cache-size=1}
 
         PersistentSelenium.chrome_extensions.each do |extension|
-          profile.add_extension extension
+          switches.push("--load-extension=#{extension}")
         end
 
-        options = { :profile => profile, :switches => %w{--disk-cache-size=1 --media-cache-size=1} }
+        options = { switches: switches }
       end
 
       @browser ||= Selenium::WebDriver.for(@browser_type, options)
